@@ -6,9 +6,8 @@ Resize-Partition -DriveLetter C -Size $ShrinkTo
 New-Partition -DiskNumber 0 -UseMaximumSize -DriveLetter L
 Format-Volume -DriveLetter L -FileSystem FAT32
 
-<#Import-Module BitsTransfer
+Import-Module BitsTransfer
 Start-BitsTransfer -Source "https://pub.linuxmint.io/stable/22.3/linuxmint-22.3-cinnamon-64bit.iso" -Destination "C:\linuxmint.iso" 
-#>
 
 $mountResult = Mount-DiskImage -ImagePath "C:\linuxmint.iso" -PassThru
 
