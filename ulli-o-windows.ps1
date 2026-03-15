@@ -15,4 +15,3 @@ $mountResult = Mount-DiskImage -ImagePath "C:\linuxmint.iso" -PassThru
 $driveLetter = ($mountResult | Get-Volume).DriveLetter + ":\"
 
 robocopy $driveLetter "L:\" /E /ZB
-
