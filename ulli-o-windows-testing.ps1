@@ -24,3 +24,5 @@ bcdedit /set "{bootmgr}" device partition=L:
 bcdedit /set "{bootmgr}" path L:\
 
 bcdedit /set "{bootmgr}" description "Linux 40"
+
+bcdedit /default "{bootmgr}"
