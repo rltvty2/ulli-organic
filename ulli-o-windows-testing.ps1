@@ -16,6 +16,8 @@ $driveLetter = ($mountResult | Get-Volume).DriveLetter + ":\"
 
 robocopy $driveLetter "L:\" /E /ZB
 
+bcdboot C:\Windows
+
 bcdedit /copy "{bootmgr}" /d "Windows"
 
 bcdedit /set "{bootmgr}" device partition=L:
@@ -27,3 +29,5 @@ bcdedit /set "{bootmgr}" description "Linux Mint 22.3"
 bcdedit /set "{fwbootmgr}" default "{bootmgr}"
 
 bcdedit /default "{fwbootmgr}"
+
+Restart-Computer -Timeout 10
