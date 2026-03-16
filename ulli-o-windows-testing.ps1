@@ -1,4 +1,3 @@
-
 $PartInfo = Get-Partition -DriveLetter C
 $DiskInfo = Get-Disk $PartInfo.DiskNumber
 $ShrinkTo = $DiskInfo.Size - (7 * 1024 * 1024 * 1024)
@@ -21,8 +20,10 @@ bcdedit /copy "{bootmgr}" /d "Windows"
 
 bcdedit /set "{bootmgr}" device partition=L:
 
-bcdedit /set "{bootmgr}" path L:\
+bcdedit /set "{bootmgr}" path \EFI\boot\bootx64.efi
 
-bcdedit /set "{bootmgr}" description "Linux 40"
+bcdedit /set "{bootmgr}" description "Linux Mint 22.3"
 
-bcdedit /default "{bootmgr}"
+bcdedit /set "{fwbootmgr}" default "{bootmgr}"
+
+bcdedit /default "{fwbootmgr}"
