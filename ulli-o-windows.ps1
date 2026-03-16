@@ -1,4 +1,3 @@
-
 $PartInfo = Get-Partition -DriveLetter C
 $DiskInfo = Get-Disk $PartInfo.DiskNumber
 $ShrinkTo = $DiskInfo.Size - (7 * 1024 * 1024 * 1024)
@@ -14,3 +13,19 @@ $mountResult = Mount-DiskImage -ImagePath "C:\linuxmint.iso" -PassThru
 $driveLetter = ($mountResult | Get-Volume).DriveLetter + ":\"
 
 robocopy $driveLetter "L:\" /E /ZB
+
+bcdboot C:\Windows
+
+bcdedit /copy "{bootmgr}" /d "Windows"
+
+bcdedit /set "{bootmgr}" device partition=L:
+
+bcdedit /set "{bootmgr}" path \EFI\boot\bootx64.efi
+
+bcdedit /set "{bootmgr}" description "Linux Mint 22.3"
+
+bcdedit /set "{fwbootmgr}" default "{bootmgr}"
+
+bcdedit /default "{fwbootmgr}"
+
+Restart-Computer
