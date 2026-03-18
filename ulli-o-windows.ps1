@@ -74,6 +74,8 @@ bcdedit /set "{bootmgr}" device partition=V:
 
 bcdedit /set "{bootmgr}" path refind-bin-0.14.2\refind\refind_x64.efi
 
+bcdedit /set "{bootmgr}" description "rEFInd"
+
 bcdedit /set "{fwbootmgr}" default "{bootmgr}"
 
 bcdedit /default "{fwbootmgr}"
