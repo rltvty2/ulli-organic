@@ -15,15 +15,6 @@ $option = Read-Host -Prompt 'Type 1 or 2 and hit Enter to select option'
 
 Until ($option -eq '1' -or $option -eq '2' )
 
-$PartInfo = Get-Partition -DriveLetter C
-$DiskInfo = Get-Disk $PartInfo.DiskNumber
-$ShrinkTo = $DiskInfo.Size - (7 * 1024 * 1024 * 1024)
-Resize-Partition -DriveLetter C -Size $ShrinkTo
-New-Partition -DiskNumber 0 -Size 100MB -DriveLetter V
-New-Partition -DiskNumber 0 -UseMaximumSize -DriveLetter L
-Format-Volume -DriveLetter V -FileSystem FAT32
-Format-Volume -DriveLetter L -FileSystem FAT32
-
 Import-Module BitsTransfer
 
 if ( $option -eq 1 )
@@ -49,6 +40,15 @@ if ( $option -eq 2 )
 	$iso_location = $file
 	
 }
+
+$PartInfo = Get-Partition -DriveLetter C
+$DiskInfo = Get-Disk $PartInfo.DiskNumber
+$ShrinkTo = $DiskInfo.Size - (7 * 1024 * 1024 * 1024)
+Resize-Partition -DriveLetter C -Size $ShrinkTo
+New-Partition -DiskNumber 0 -Size 100MB -DriveLetter V
+New-Partition -DiskNumber 0 -UseMaximumSize -DriveLetter L
+Format-Volume -DriveLetter V -FileSystem FAT32
+Format-Volume -DriveLetter L -FileSystem FAT32
 
 Start-BitsTransfer -Source "https://sourceforge.net/projects/refind/files/0.14.2/refind-bin-0.14.2.zip/download" -Destination "C:\refind.zip"
 
