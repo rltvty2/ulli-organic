@@ -15,14 +15,6 @@ $option = Read-Host -Prompt 'Type 1 or 2 and hit Enter to select option'
 
 Until ($option -eq '1' -or $option -eq '2' )
 
-Do {
-
-$file = Read-Host -Prompt 'Full path and name of ISO file (including .iso)'
-
-}
-
-Until ( [System.IO.File]::Exists($file) -eq "True" )
-
 $PartInfo = Get-Partition -DriveLetter C
 $DiskInfo = Get-Disk $PartInfo.DiskNumber
 $ShrinkTo = $DiskInfo.Size - (7 * 1024 * 1024 * 1024)
@@ -46,6 +38,14 @@ if ( $option -eq 1 )
 if ( $option -eq 2 )
 {
 	
+	Do {
+
+		$file = Read-Host -Prompt 'Full path and name of ISO file (including .iso)'
+
+	}
+
+	Until ( [System.IO.File]::Exists($file) -eq "True" )
+	
 	$iso_location = $file
 	
 }
@@ -60,8 +60,6 @@ robocopy $driveLetter "L:\" /E /ZB
 
 Expand-Archive C:\refind.zip -DestinationPath V:\
 
-robocopy C:\refind V:\ /E
-
 bcdboot C:\Windows
 
 bcdedit /copy "{bootmgr}" /d "Windows"
@@ -70,7 +68,7 @@ bcdedit /set "{bootmgr}" device partition=L:
 
 bcdedit /set "{bootmgr}" path \EFI\boot\bootx64.efi
 
-bcdedit /copy "{bootmgr}" /d "Linux Mint"
+bcdedit /copy "{bootmgr}" /d "Linux"
 
 bcdedit /set "{bootmgr}" device partition=V:
 
