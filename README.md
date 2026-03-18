@@ -2,4 +2,6 @@ WARNING: THIS SOFTWARE IS IN ALPHA AND IS NOT RECOMMENDED FOR USE ON YOUR MAIN/C
 
 Installs Linux Mint or a custom ISO and rEFInd from Windows. No GUI.
 
+Requires disabling Secure Boot.
+
 For the version including AI generated code see https://github.com/rltvty2/ulli
